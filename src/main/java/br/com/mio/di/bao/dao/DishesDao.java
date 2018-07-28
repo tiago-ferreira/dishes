@@ -18,7 +18,7 @@ public class DishesDao {
         dishes.add(new Dish(Period.NIGHT, DishType.SIDE, "potato"));
         dishes.add(new Dish(Period.MORNING, DishType.DRINK, "coffee"));
         dishes.add(new Dish(Period.NIGHT, DishType.DRINK, "wine"));
-        dishes.add(new Dish(Period.MORNING, DishType.DESSERT, null));
+        dishes.add(new Dish(Period.MORNING, DishType.DESSERT, "error"));
         dishes.add(new Dish(Period.NIGHT, DishType.DESSERT, "cake"));
     }
 

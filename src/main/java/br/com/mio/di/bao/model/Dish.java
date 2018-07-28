@@ -12,6 +12,9 @@ public class Dish {
     private String value;
 
     public Dish() {
+        this.period = Period.MORNING;
+        this.dishType = DishType.DESSERT;
+        this.value = "error";
     }
 
     public Dish(Period period, DishType dishType, String value) {

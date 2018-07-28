@@ -8,7 +8,7 @@ import br.com.mio.di.bao.model.Dish;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class CreateDishes {
+public class DishBusiness {
 
     private Map<Dish, Integer> dishMap = new HashMap<>();
     Set<Dish> dishes = new HashSet<>();
@@ -50,7 +50,7 @@ public class CreateDishes {
     private Dish findDish(Period period, DishType dishType) {
         Optional<Dish> toReturn = DishesDao.getDishes()
                 .stream().filter((a) -> a.getPeriod() == period && a.getDishType() == dishType).findFirst();
-        return toReturn.orElseThrow( () ->  new IllegalArgumentException("Error"));
+        return toReturn.orElse(new Dish());
     }
 
     private String createResult(List<Dish> dishes) {
@@ -61,15 +61,18 @@ public class CreateDishes {
             if(isEggs(dish) || isPotatoes(dish)) {
                 value = format(dish, dishMap.get(dish));
             }
-            toReturn += value +",";
+            if(value.isEmpty()){
+                value = "error";
+            }
+            toReturn += value +", ";
         }
-        return toReturn.substring(0, toReturn.length() - 1);
+        return toReturn.substring(0, toReturn.length() - 2).trim();
     }
 
 
 
     private String format(Dish dish, Integer count) {
-        return dish.getValue()+"("+count+")";
+        return dish.getValue()+"(x"+count+")";
     }
 
     private boolean isEggs(Dish dish) {
@@ -79,6 +82,7 @@ public class CreateDishes {
     private boolean isPotatoes(Dish dish) {
         return dish.getPeriod() == Period.NIGHT &&  dish.getValue().equalsIgnoreCase("potato") && dishMap.get(dish) > 1;
     }
+
 
 
 }
